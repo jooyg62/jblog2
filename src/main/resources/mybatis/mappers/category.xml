@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+
+	<insert id="insert" parameterType="categoryvo">
+		<![CDATA[
+			insert into 
+				category values (null, #{name}, #{discription}, now(), #{blogId})
+		]]>
+	</insert>
+	
+	<select id="select" resultType="categoryvo" parameterType="string">
+		<![CDATA[
+			select
+				no 				as no,
+				name 			as name,
+				discription 	as discription,
+				reg_date 		as regDate,
+				blog_id 		as blogId,
+				(select count(*) from post where category_no = a.no) as postCount
+			  from category a
+			where blog_id = #{id}
+			order by no desc
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			delete from category where no = #{no}
+		]]>
+	</delete>
+	
+</mapper>
