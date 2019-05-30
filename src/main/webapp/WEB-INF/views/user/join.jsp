@@ -31,7 +31,7 @@ action="${pageContext.request.contextPath}/user/join">
 			</p>
 			
 			<label class="block-label" for="id">아이디</label>
-			<form:input path='id' /> 
+			<form:input id="input_id" path='id' /> 
 			
 			<input id="btn-checkemail" type="button" value="id 중복체크">
 			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
@@ -51,7 +51,7 @@ action="${pageContext.request.contextPath}/user/join">
 				<label class="l-float">서비스 약관에 동의합니다.</label>
 			</fieldset>
 
-			<input type="submit" value="가입하기">
+			<input type="submit" id="join-submit" id_check_result="fail" value="가입하기">
 
 		</form:form>
 	</div>
@@ -79,15 +79,37 @@ $('#btn-checkemail').click(function(){
 			// 중복 없음.
 			$('#img-checkemail').show();
 			$('#btn-checkemail').hide();
+			$("#join-submit").attr("id_check_result", "success");
 		},
 		error: function (request, status, error) {
-			console.log(request);
-			console.log(status);
-			console.log(error);
+			alert("서버와의 통신에 문제가 발생하였습니다.");
 		}
 	});
 	
 });
+
+$("#join-form").submit(function() {
+	if($("input:checkbox[id='agree-prov']").is(":checked") == false) {
+		alert("약관동의를 확인하여 주시기 바랍니다.");
+		return false;
+	}
+	
+	console.log($("#join-submit").attr("id_check_result"));
+	
+	if($("#join-submit").attr("id_check_result") == "fail") {
+		alert("id 중복체크를 해주시기 바랍니다.");
+		$("#input_id").focus();
+		return false;
+	}
+	
+});
+
+$("#input_id").on("propertychange change keyup paste input", function(){
+	$('#img-checkemail').hide();
+	$('#btn-checkemail').show();
+	$("#join-submit").attr("id_check_result", "fail");
+});
+
 
 </script>
 </html>

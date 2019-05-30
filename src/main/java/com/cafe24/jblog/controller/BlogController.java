@@ -22,7 +22,7 @@ import com.cafe24.jblog.vo.CategoryVo;
 import com.cafe24.jblog.vo.PostVo;
 import com.cafe24.jblog.vo.UserVo;
 
-@RequestMapping("/{id:(?:[^(assets|images)]).*}")
+@RequestMapping("/{id:(?:(?!assets)(?!images)).*}")
 @Controller
 public class BlogController {
 	
@@ -52,7 +52,6 @@ public class BlogController {
 			@PathVariable String id,
 			@AuthUser UserVo authUser,
 			Model model) {
-		
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/user/login";
 		}
