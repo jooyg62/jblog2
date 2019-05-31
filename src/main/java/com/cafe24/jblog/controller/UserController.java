@@ -1,11 +1,7 @@
 package com.cafe24.jblog.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,26 +57,6 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/login/do", method=RequestMethod.POST)
-	public String login(
-			HttpServletRequest request,
-			HttpServletResponse response
-	) throws IOException {
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		
-		UserVo userVo = new UserVo();
-		userVo.setId(id);
-		userVo.setPassword(password);
-		UserVo authUser = userService.getUser(userVo);
-		if(authUser == null) {
-			return "redirect:/user/login";
-		}
-		
-		// session 처리
-		HttpSession session = request.getSession(true);
-		session.setAttribute("authUser", authUser);
-		
-		return "redirect:/";
-	}
+	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	public void login() {}
 }

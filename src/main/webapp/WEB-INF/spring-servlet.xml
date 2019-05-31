@@ -45,13 +45,18 @@
 	
 	<!-- Interceptors 설정 -->
     <mvc:interceptors>
+    	<mvc:interceptor>
+        	<mvc:mapping path="/user/auth" /> 
+    	<bean class="com.cafe24.jblog.security.AuthLoginInterceptor" />
+        </mvc:interceptor>
         <mvc:interceptor>
         	<mvc:mapping path="/user/logout" /> 
     	<bean class="com.cafe24.jblog.security.AuthLogoutInterceptor" />
         </mvc:interceptor>
         <mvc:interceptor>
         	<mvc:mapping path="/**" />
-        	<mvc:exclude-mapping path="user/logout"/>
+        	<mvc:exclude-mapping path="/user/auth"/>
+        	<mvc:exclude-mapping path="/user/logout"/>
         	<mvc:exclude-mapping path="/assets/**"/>
     	<bean class="com.cafe24.jblog.security.AuthInterceptor" />
         </mvc:interceptor>

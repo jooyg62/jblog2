@@ -8,7 +8,6 @@ import com.cafe24.jblog.repository.CategoryDao;
 import com.cafe24.jblog.repository.PostDao;
 import com.cafe24.jblog.repository.UserDao;
 import com.cafe24.jblog.vo.CategoryVo;
-import com.cafe24.jblog.vo.PostVo;
 import com.cafe24.jblog.vo.UserVo;
 
 @Service
