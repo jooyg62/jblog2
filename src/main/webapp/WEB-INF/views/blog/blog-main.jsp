@@ -33,7 +33,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/images/${blogVo.logo }">
+				<img src="${pageContext.request.contextPath}/images/${blogVo.logo }" onError="javascript:this.src='${pageContext.request.contextPath}/assets/images/spring-logo.jpg'" />
 			</div>
 		</div>
 

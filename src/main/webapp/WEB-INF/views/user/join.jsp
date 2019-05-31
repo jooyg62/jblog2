@@ -34,7 +34,7 @@ action="${pageContext.request.contextPath}/user/join">
 			<form:input id="input_id" path='id' /> 
 			
 			<input id="btn-checkemail" type="button" value="id 중복체크">
-			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
+			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png" />
 			<p style="font-weight:bold; color:#f00; text-align:left; padding:0; margin:0;">
 				<form:errors path="id" />
 			</p>
@@ -60,13 +60,18 @@ action="${pageContext.request.contextPath}/user/join">
 
 $('#btn-checkemail').click(function(){
 	
+	if($("#input_id").val().trim() == "") {
+		alert("아이디를 입력해 주세요");
+		return;
+	}
+		
 	$.ajax({
 		url: "${pageContext.servletContext.contextPath}/user/api/checkemail",
 		type: "post",
 		cache: false,
 		dataType: "json",
 		data: {
-			'id' : $("#id").val()	
+			'id' : $("#input_id").val()	
 		},
 		success: function(response) {
 			console.log(response);
